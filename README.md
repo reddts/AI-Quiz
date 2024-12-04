@@ -7,7 +7,7 @@
 	<a href="https://github.com/insistence/Dash-FastAPI-Admin"><img src="https://img.shields.io/github/stars/reddts/AI-Quiz?style=social"></a>
 	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/badge/AI__Quiz-v1.0.0-brightgreen.svg"></a>
 	<a href="https://github.com/reddts/AI-Quiz/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-    <img src="https://img.shields.io/badge/python-≥3.9-blue">
+    <img src="https://img.shields.io/badge/python-≥3.10.15-blue">
     <img src="https://img.shields.io/badge/MySQL-≥5.7-blue">
 </p>
 
@@ -24,6 +24,11 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 * 支持多种AI接口，目前支持openai等，更多的ai接口接入中
 * 支持多种测试量表，量表也在不断添加中。
 * 特别鸣谢：<u>[insistence](https://github.com/insistence/Dash-FastAPI-Admin)</u> 。
+
+## 版本更迭记录
+* v1.0.0 完成基本框架
+* v1.0.1 完成后台量表数据管理
+
 
 ## 后台管理功能
 
@@ -42,6 +47,8 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 13. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
 14. 缓存监控：对系统的缓存信息查询，命令统计等。
 15. 系统接口：根据业务代码自动生成相关的api接口文档。
+16. 会员管理：使用系统的会员进行管理
+17：量表管理：管理量表，增加修改删除量表及其关联的表单项
 
 ## 前端uniapp功能
 
@@ -50,44 +57,8 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 
 <table>
     <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%99%BB%E5%BD%95.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E8%A7%92%E8%89%B2%E7%AE%A1%E7%90%86.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E8%8F%9C%E5%8D%95%E7%AE%A1%E7%90%86.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E9%83%A8%E9%97%A8%E7%AE%A1%E7%90%86.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%AD%97%E5%85%B8%E7%AE%A1%E7%90%86.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E9%80%9A%E7%9F%A5%E5%85%AC%E5%91%8A.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%99%BB%E5%BD%95%E6%97%A5%E5%BF%97.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%9C%A8%E7%BA%BF%E7%94%A8%E6%88%B7.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7.png"/></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%BC%93%E5%AD%98%E7%9B%91%E6%8E%A7.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%BC%93%E5%AD%98%E5%88%97%E8%A1%A8.png"></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3.png"></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E9%A6%96%E9%A1%B5.png"></td>
-        <td><img src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99.png"/></td>
+        <td><img src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/logo_120.png"/></td>
+        <td><img src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/logo_120.png"/></td>
     </tr>
 </table>
 
@@ -215,14 +186,7 @@ python3 app.py --env=prod
 如果有对本项目及FastAPI和AI感兴趣的朋友，欢迎入群交流。如果你觉得这个项目帮助到了你，你可以请作者喝杯咖啡表示鼓励☕。扫描下面微信二维码添加微信备注AI-Quiz即可进群。
 <table>
     <tr>
-        <td style="width: 50%"><img alt="zanzhu_wx" src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/zanzhu_wx.jpg"></td>
-        <td style="width: 50%"><img alt="zanzhu_zfb" src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/zanzhu_zfb.jpg"></td>
-    </tr>
-    <tr>
-        <td style="width: 50%"><img alt="zsxq" src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/zsxq.jpg"></td>
-        <td style="width: 50%"><img alt="dashzsxq" src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/dashzsxq.jpg"></td>
-    </tr>
-    <tr>
-        <td style="width: 50%"><img alt="wxcode" src="https://gitee.com/insistence2022/dash-fastapi-admin/raw/master/demo-pictures/wxcode.jpg"></td>
+        <td style="width: 50%"><img alt="wx" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/wx.jpg"></td>
+        <td style="width: 50%"><img alt="zfb" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg"></td>
     </tr>
 </table>
