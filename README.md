@@ -48,7 +48,7 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 14. 缓存监控：对系统的缓存信息查询，命令统计等。
 15. 系统接口：根据业务代码自动生成相关的api接口文档。
 16. 会员管理：使用系统的会员进行管理
-17：量表管理：管理量表，增加修改删除量表及其关联的表单项
+17. 量表管理：管理量表，增加修改删除量表及其关联的表单项
 
 ## 前端uniapp功能
 
@@ -106,8 +106,8 @@ cd fastapi-backend
 2.在.env.dev文件中配置开发模式的redis环境
 
 # 运行sql文件
-1.新建数据库dash-fastapi(默认，可修改)
-2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的dash-fastapi.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的dash-fastapi-pg.sql
+1.新建数据库ai-quiz(默认，可修改)
+2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz-pg.sql
 
 # 运行后端
 python3 app.py --env=dev
@@ -158,15 +158,15 @@ python3 wsgi.py --env=prod
 #### 后端
 ```bash
 # 进入后端目录
-cd dash-fastapi-backend
+cd fastapi-backend
 
 # 配置环境
 1.在.env.prod文件中配置生产模式的数据库环境
 2.在.env.prod文件中配置生产模式的redis环境
 
 # 运行sql文件
-1.新建数据库dash-fastapi(默认，可修改)
-2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的dash-fastapi.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的dash-fastapi-pg.sql
+1.新建数据库ai-quiz(默认，可修改)
+2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz-pg.sql
 
 # 运行后端
 python3 app.py --env=prod
