@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
+	<img alt="logo" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/logo_120.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Dash-FastAPI-Quiz</h1>
 <h4 align="center">基于Dash+FastAPI的评测系统</h4>
