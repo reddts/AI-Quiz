@@ -5,7 +5,7 @@
 <h4 align="center">Api用python开发的，基于Dash和FastAPI的评测系统，引入了AI分析</h4>
 <p align="center">
 	<a href="https://github.com/insistence/Dash-FastAPI-Admin"><img src="https://img.shields.io/github/stars/reddts/AI-Quiz?style=social"></a>
-	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/badge/AI-Quiz-v1.0.0-brightgreen.svg"></a>
+	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/badge/AI__Quiz-v1.0.0-brightgreen.svg"></a>
 	<a href="https://github.com/reddts/AI-Quiz/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
     <img src="https://img.shields.io/badge/python-≥3.9-blue">
     <img src="https://img.shields.io/badge/MySQL-≥5.7-blue">
