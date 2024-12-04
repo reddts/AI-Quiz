@@ -1,13 +1,12 @@
 <p align="center">
 	<img alt="logo" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/logo_120.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Dash-FastAPI-Quiz</h1>
-<h4 align="center">基于Dash+FastAPI的评测系统</h4>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AI-Quiz</h1>
+<h4 align="center">Api用python开发的，基于Dash和FastAPI的评测系统，引入了AI分析</h4>
 <p align="center">
-	<a href="https://gitee.com/insistence2022/dash-fastapi-admin/stargazers"><img src="https://gitee.com/insistence2022/dash-fastapi-admin/badge/star.svg?theme=dark"></a>
-    <a href="https://github.com/insistence/Dash-FastAPI-Admin"><img src="https://img.shields.io/github/stars/insistence/Dash-FastAPI-Admin?style=social"></a>
-	<a href="https://gitee.com/insistence2022/dash-fastapi-admin"><img src="https://img.shields.io/badge/DashFastAPIAdmin-v2.1.1-brightgreen.svg"></a>
-	<a href="https://gitee.com/insistence2022/dash-fastapi-admin/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+	<a href="https://github.com/insistence/Dash-FastAPI-Admin"><img src="https://img.shields.io/github/stars/reddts/AI-Quiz?style=social"></a>
+	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/badge/AI-Quiz-v1.0.0-brightgreen.svg"></a>
+	<a href="https://github.com/reddts/AI-Quiz/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
     <img src="https://img.shields.io/badge/python-≥3.9-blue">
     <img src="https://img.shields.io/badge/MySQL-≥5.7-blue">
 </p>
