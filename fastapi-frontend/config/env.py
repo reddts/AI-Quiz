@@ -11,11 +11,11 @@ class AppSettings(BaseSettings):
     """
 
     app_env: str = 'dev'
-    app_name: str = 'DF Admin'
+    app_name: str = 'AI-Quiz'
     app_base_url: str = 'http://127.0.0.1:9099'
     app_proxy_path: str = '/dev-api'
     app_is_proxy: bool = False
-    app_secret_key: str = 'Dash-FastAPI-Admin'
+    app_secret_key: str = 'Xbo1SY5FNUuo1LlG'
     app_host: str = '0.0.0.0'
     app_port: int = 8088
     app_debug: bool = True
