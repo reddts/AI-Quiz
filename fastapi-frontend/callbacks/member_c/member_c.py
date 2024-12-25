@@ -6,7 +6,7 @@ from dash import ctx, dcc, no_update
 from dash.dependencies import ALL, Input, Output, State
 from dash.exceptions import PreventUpdate
 from typing import Dict
-from api.Member import MemberApi
+from api.member.member import MemberApi
 from config.constant import SysNormalDisableConstant
 from server import app
 from utils.common_util import ValidateUtil
@@ -37,9 +37,6 @@ def generate_member_table(query_params: Dict):
             item['status'] = dict(checked=True, disabled=item['member_id'] == 1)
         else:
             item['status'] = dict(checked=False, disabled=item['member_id'] == 1)
-        item['dept_name'] = (
-            item.get('dept').get('dept_name') if item.get('dept') else None
-        )
         item['create_time'] = TimeFormatUtil.format_time(
             item.get('create_time')
         )
@@ -57,20 +54,10 @@ def generate_member_table(query_params: Dict):
                 {'title': '重置密码', 'icon': 'antd-key'}
                 if PermissionManager.check_perms('member:resetPwd')
                 else None,
-                {'title': '分配角色', 'icon': 'antd-check-circle'}
-                if PermissionManager.check_perms('member:edit')
-                else None,
             ]
 
     return [table_data, table_pagination]
 
-
-app.clientside_callback(
-    """(dept_input) => dept_input""",
-    Output('dept-tree', 'searchKeyword'),
-    Input('dept-input-search', 'value'),
-    prevent_initial_call=True,
-)
 
 
 @app.callback(
@@ -83,7 +70,6 @@ app.clientside_callback(
         member_table_selectedrowkeys=Output('member-list-table', 'selectedRowKeys'),
     ),
     inputs=dict(
-        selected_dept_tree=Input('dept-tree', 'selectedKeys'),
         search_click=Input('member-search', 'nClicks'),
         refresh_click=Input('member-refresh', 'nClicks'),
         pagination=Input('member-list-table', 'pagination'),
@@ -97,8 +83,7 @@ app.clientside_callback(
     ),
     prevent_initial_call=True,
 )
-def get_member_table_data_by_dept_tree(
-    selected_dept_tree,
+def get_member_table_data(
     search_click,
     refresh_click,
     pagination,
@@ -111,16 +96,12 @@ def get_member_table_data_by_dept_tree(
     """
     获取会员表格数据回调（进行表格相关增删查改操作后均会触发此回调）
     """
-    dept_id = None
     begin_time = None
     end_time = None
     if create_time_range:
         begin_time = create_time_range[0]
         end_time = create_time_range[1]
-    if selected_dept_tree:
-        dept_id = int(selected_dept_tree[0])
     query_params = dict(
-        dept_id=dept_id,
         member_name=member_name,
         phonenumber=phone_number,
         status=status_select,
@@ -137,13 +118,7 @@ def get_member_table_data_by_dept_tree(
                 'page_size': pagination['pageSize'],
             }
         )
-    if (
-        selected_dept_tree
-        or search_click
-        or refresh_click
-        or pagination
-        or operations
-    ):
+    if search_click or refresh_click or pagination or operations:
         table_data, table_pagination = generate_member_table(query_params)
 
         return dict(
@@ -161,13 +136,12 @@ app.clientside_callback(
     """
     (reset_click) => {
         if (reset_click) {
-            return [null, null, null, null, null, {'type': 'reset'}]
+            return [null, null, null, null, {'type': 'reset'}]
         }
         return window.dash_clientside.no_update;
     }
     """,
     [
-        Output('dept-tree', 'selectedKeys'),
         Output('member-member_name-input', 'value'),
         Output('member-phone_number-input', 'value'),
         Output('member-status-select', 'value'),
@@ -267,15 +241,10 @@ app.clientside_callback(
     ],
     prevent_initial_call=True,
 )
-
-
 @app.callback(
     output=dict(
         modal_visible=Output('member-modal', 'visible', allow_duplicate=True),
         modal_title=Output('member-modal', 'title'),
-        dept_tree=Output('member-dpet-tree', 'treeData'),
-        post_option=Output('member-post', 'options'),
-        role_option=Output('member-role', 'options'),
         member_name_disabled=Output('member-form-member_name', 'disabled'),
         password_disabled=Output('member-form-password', 'disabled'),
         member_name_password_container=Output(
@@ -326,41 +295,22 @@ def add_edit_member_modal(
             and recently_clicked_dropdown_item_title == '修改'
         )
     ):
-        tree_info = MemberApi.dept_tree_select()
-        tree_data = tree_info['data']
         if trigger_id == {'index': 'add', 'type': 'member-operation-button'}:
             detail_info = MemberApi.get_member(member_id='')
-            post_option = detail_info['posts']
-            role_option = detail_info['roles']
             member_info = dict(
                 nick_name=None,
-                dept_id=None,
                 phonenumber=None,
                 email=None,
                 member_name=None,
                 password=None,
-                post_ids=None,
                 member_ids=None,
-                sex=None,
+                gender=None,
                 status=SysNormalDisableConstant.NORMAL,
                 remark=None,
             )
             return dict(
                 modal_visible=True,
-                modal_title='新增会员',
-                dept_tree=tree_data,
-                post_option=[
-                    dict(label=item['post_name'], value=item['post_id'])
-                    for item in post_option
-                    if item
-                ]
-                or [],
-                role_option=[
-                    dict(label=item['role_name'], value=item['role_id'])
-                    for item in role_option
-                    if item
-                ]
-                or [],
+                modal_title='新增会员',                
                 member_name_disabled=False,
                 password_disabled=False,
                 member_name_password_container=False,
@@ -382,32 +332,9 @@ def add_edit_member_modal(
                 member_id = int(recently_dropdown_item_clicked_row['key'])
             member_info_res = MemberApi.get_member(member_id=member_id)
             member_info = member_info_res['data']
-            post_option = member_info_res['posts']
-            role_option = member_info_res['roles']
-            post_ids = member_info['post_ids']
-            role_ids = member_info['role_ids']
-            member_info['post_ids'] = (
-                [int(item) for item in post_ids.split(',')] if post_ids else []
-            )
-            member_info['role_ids'] = (
-                [int(item) for item in role_ids.split(',')] if role_ids else []
-            )
             return dict(
                 modal_visible=True,
-                modal_title='编辑会员',
-                dept_tree=tree_data,
-                post_option=[
-                    dict(label=item['post_name'], value=item['post_id'])
-                    for item in post_option
-                    if item
-                ]
-                or [],
-                role_option=[
-                    dict(label=item['role_name'], value=item['role_id'])
-                    for item in role_option
-                    if item
-                ]
-                or [],
+                modal_title='编辑会员',                
                 member_name_disabled=True,
                 password_disabled=True,
                 member_name_password_container=True,
@@ -624,8 +551,8 @@ def member_delete_confirm(delete_confirm, member_ids_data):
         Output(
             'member-reset-password-confirm-modal', 'visible', allow_duplicate=True
         ),
-        Output('reset-password-row-key-store', 'data'),
-        Output('reset-password-input', 'value'),
+        Output('member-reset-password-row-key-store', 'data'),
+        Output('member-reset-password-input', 'value'),
     ],
     Input('member-list-table', 'nClicksDropdownItem'),
     [
@@ -662,8 +589,8 @@ def member_reset_password_modal(
     ],
     Input('member-reset-password-confirm-modal', 'okCounts'),
     [
-        State('reset-password-row-key-store', 'data'),
-        State('reset-password-input', 'value'),
+        State('member-reset-password-row-key-store', 'data'),
+        State('member-reset-password-input', 'value'),
     ],
     running=[
         [
@@ -720,11 +647,11 @@ app.clientside_callback(
 
 @app.callback(
     output=dict(
-        result_modal_visible=Output('batch-result-modal', 'visible'),
+        result_modal_visible=Output('member-batch-result-modal', 'visible'),
         import_modal_visible=Output(
             'member-import-confirm-modal', 'visible', allow_duplicate=True
         ),
-        batch_result=Output('batch-result-content', 'children'),
+        batch_result=Output('member-batch-result-content', 'children'),
         operations=Output(
             'member-operations-store', 'data', allow_duplicate=True
         ),
@@ -806,80 +733,73 @@ def download_member_template(download_click):
 
     raise PreventUpdate
 
-
 @app.callback(
-    [
-        Output('member-export-container', 'data', allow_duplicate=True),
-        Output(
-            'member-export-complete-judge-container', 'data', allow_duplicate=True
-        ),
-    ],
-    Input('member-export', 'nClicks'),
-    [
-        State('dept-tree', 'selectedKeys'),
-        State('member-member_name-input', 'value'),
-        State('member-phone_number-input', 'value'),
-        State('member-status-select', 'value'),
-        State('member-create_time-range', 'value'),
-    ],
-    running=[[Output('member-export', 'loading'), True, False]],
-    prevent_initial_call=True,
-)
-def export_member_list(
-    export_click,
-    selected_dept_tree,
-    member_name,
-    phone_number,
-    status_select,
-    create_time_range,
-):
-    """
-    导出会员信息回调
-    """
-    if export_click:
-        dept_id = None
-        begin_time = None
-        end_time = None
-        if create_time_range:
-            begin_time = create_time_range[0]
-            end_time = create_time_range[1]
-        if selected_dept_tree:
-            dept_id = int(selected_dept_tree[0])
-        export_params = dict(
-            dept_id=dept_id,
-            member_name=member_name,
-            phonenumber=phone_number,
-            status=status_select,
-            begin_time=begin_time,
-            end_time=end_time,
-        )
-        export_member_res = MemberApi.export_member(export_params)
-        MessageManager.success(content='导出成功')
-
-        export_member = export_member_res.content
-
-        return [
-            dcc.send_bytes(
-                export_member,
-                f'会员信息_{time.strftime("%Y%m%d%H%M%S", time.localtime())}.xlsx',
+        [
+            Output('member-export-container', 'data', allow_duplicate=True),
+            Output(
+                'member-export-complete-judge-container', 'data', allow_duplicate=True
             ),
-            {'timestamp': time.time()},
-        ]
+        ],
+        Input('member-export', 'nClicks'),
+        [
+            State('member-member_name-input', 'value'),
+            State('member-phone_number-input', 'value'),
+            State('member-status-select', 'value'),
+            State('member-create_time-range', 'value'),
+        ],
+        running=[[Output('member-export', 'loading'), True, False]],
+        prevent_initial_call=True,
+    )
+def export_member_list(
+        export_click,
+        member_name,
+        phone_number,
+        status_select,
+        create_time_range,
+):
+        """
+        导出会员信息回调
+        """
+        if export_click:
+            begin_time = None
+            end_time = None
+            if create_time_range:
+                begin_time = create_time_range[0]
+                end_time = create_time_range[1]
+            export_params = dict(
+                member_name=member_name,
+                phonenumber=phone_number,
+                status=status_select,
+                begin_time=begin_time,
+                end_time=end_time,
+            )
+            export_member_res = MemberApi.export_member(export_params)
+            MessageManager.success(content='导出成功')
 
-    raise PreventUpdate
+            export_member = export_member_res.content
+
+            return [
+                dcc.send_bytes(
+                    export_member,
+                    f'会员信息_{time.strftime("%Y%m%d%H%M%S", time.localtime())}.xlsx',
+                ),
+                {'timestamp': time.time()},
+            ]
+
+        raise PreventUpdate
 
 
 @app.callback(
-    Output('member-export-container', 'data', allow_duplicate=True),
-    Input('member-export-complete-judge-container', 'data'),
-    prevent_initial_call=True,
-)
+        Output('member-export-container', 'data', allow_duplicate=True),
+        Input('member-export-complete-judge-container', 'data'),
+        prevent_initial_call=True,
+    )
 def reset_member_export_status(data):
-    """
-    导出完成后重置下载组件数据回调，防止重复下载文件
-    """
-    time.sleep(0.5)
-    if data:
-        return None
+        """
+        导出完成后重置下载组件数据回调，防止重复下载文件
+        """
+        time.sleep(0.5)
+        if data:
+            return None
 
-    raise PreventUpdate
+        raise PreventUpdate

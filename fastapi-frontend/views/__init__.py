@@ -9,4 +9,5 @@ from . import (
     register,  # noqa: F401
     system,  # noqa: F401
     tool,  # noqa: F401
+    member,  # noqa: F401
 )

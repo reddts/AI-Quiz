@@ -18,7 +18,7 @@ class MemberModel(BaseModel):
     password: Optional[str] = Field(default=None, description='密码')
     status: Optional[Literal['0', '1']] = Field(default=None, description='帐号状态（0正常 1停用）')
     age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[str] = Field(None, description="用户性别", regex="^(M|F)$")
+    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
     email: Optional[EmailStr] = Field(None, description="用户邮箱")
     phonenumber: Optional[str] = Field(default=None, description='手机号码')
     login_ip: Optional[str] = Field(default=None, description='最后登录IP')
@@ -76,7 +76,7 @@ class CreateMemberVO(BaseModel):
     """
     name: Optional[str] = Field(None, max_length=100, description="用户姓名")
     age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[str] = Field(None, description="用户性别", regex="^(M|F)$")
+    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
     email: Optional[EmailStr] = Field(None, description="用户邮箱")
 
     class Config:
@@ -88,7 +88,7 @@ class UpdateMemberVO(BaseModel):
     """    
     name: Optional[str] = Field(None, max_length=100, description="用户姓名")
     age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[str] = Field(None, description="用户性别", regex="^(M|F)$")
+    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
     email: Optional[EmailStr] = Field(None, description="用户邮箱")
 
     class Config:

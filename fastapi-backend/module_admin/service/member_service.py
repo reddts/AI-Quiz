@@ -3,10 +3,16 @@ from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional
 from exceptions.exception import ServiceException
-from dao.member_dao import MemberDao
-from schemas.member_vo import CreateMemberVO, UpdateMemberVO, MemberVO
+from module_admin.dao.member_dao import MemberDao
+from module_admin.entity.vo.member_vo import (
+    CreateMemberVO,
+    UpdateMemberVO,
+    MemberModel,
+    MemberPageQueryModel,
+    )
 from config.constant import CommonConstant
-from utils.common_util import SqlalchemyUtil, Pagination
+from utils.page_util import PageResponseModel
+from utils.common_util import SqlalchemyUtil
 
 logger = logging.getLogger(__name__)  # 日志记录器
 
@@ -16,7 +22,9 @@ class MemberService:
     """
 
     @classmethod
-    async def get_all_members(cls, db: AsyncSession, page: Optional[int] = None, size: Optional[int] = None):
+    async def get_member_list_services(
+        cls, query_db: AsyncSession, query_object: MemberPageQueryModel,  is_page: bool = False
+    ):
         """
         获取所有会员信息（支持分页）
 
@@ -25,20 +33,20 @@ class MemberService:
         :param size: 每页大小
         :return: 分页或全部会员信息的列表
         """
-        try:
-            logger.info(f"Fetching member list with page={page}, size={size}")
-            
-            members = await MemberDao.get_all_members(db)
-            member_list = [MemberVO(**SqlalchemyUtil.serialize_result(member)) for member in members]
-            
-            # 支持分页
-            if page and size:
-                paginated_result = Pagination.paginate(member_list, page, size)
-                return paginated_result
-            return member_list
-        except Exception as e:
-            logger.error("Failed to fetch member list", exc_info=True)
-            raise ServiceException(message="获取会员列表失败", details=str(e))
+        query_result = await MemberDao.get_member_list(query_db, query_object,  is_page)
+        if is_page:
+            member_list_result = PageResponseModel(
+                **{
+                    **query_result.model_dump(),
+                    'rows': [{**row[0], 'dept': row[1]} for row in query_result.rows],
+                }
+            )
+        else:
+            member_list_result = []
+            if query_result:
+                member_list_result = [{**row[0], 'dept': row[1]} for row in query_result]
+
+        return member_list_result
 
     @classmethod
     async def get_member_by_id(cls, db: AsyncSession, user_id: int, redis):
@@ -55,14 +63,14 @@ class MemberService:
             cached_member = await redis.get(cache_key)
             if cached_member:
                 logger.info(f"Cache hit for member ID: {user_id}")
-                return MemberVO(**SqlalchemyUtil.deserialize_json(cached_member))
+                return MemberModel(**SqlalchemyUtil.deserialize_json(cached_member))
 
             logger.info(f"Cache miss for member ID: {user_id}")
             member = await MemberDao.get_member_by_id(db, user_id)
             if not member:
                 raise ServiceException(message=f"用户ID为 {user_id} 的会员信息不存在")
 
-            member_vo = MemberVO(**SqlalchemyUtil.serialize_result(member))
+            member_vo = MemberModel(**SqlalchemyUtil.serialize_result(member))
             # 缓存数据
             await redis.set(cache_key, SqlalchemyUtil.serialize_json(member_vo), ex=3600)
             return member_vo
@@ -120,7 +128,7 @@ class MemberService:
             # 清理相关缓存
             await redis.delete(f"member:{user_id}")
             await redis.delete("member:all")
-            return MemberVO(**SqlalchemyUtil.serialize_result(updated_member))
+            return MemberModel(**SqlalchemyUtil.serialize_result(updated_member))
         except Exception as e:
             logger.error(f"Failed to update member ID: {user_id}", exc_info=True)
             await db.rollback()

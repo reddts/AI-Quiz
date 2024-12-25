@@ -7,7 +7,6 @@ from pydantic_validation_decorator import ValidateFields
 from config.get_db import get_db
 from config.env import UploadConfig
 from module_admin.annotation.log_annotation import Log
-from module_admin.aspect.data_scope import GetDataScope
 from module_admin.aspect.interface_auth import CheckUserInterfaceAuth
 from module_admin.entity.vo.member_vo import (
     MemberModel,
@@ -31,14 +30,18 @@ from utils.upload_util import UploadUtil
 memberController = APIRouter(prefix='/member', tags=["Member"])
 
 @memberController.get("/list", response_model=PageResponseModel, dependencies=[Depends(CheckUserInterfaceAuth('member:list'))])
-async def get_all_members(request: Request,member_page_query: MemberPageQueryModel = Query(),query_db: AsyncSession = Depends(get_db),):
+async def get_all_members(
+    request: Request,
+    member_page_query: MemberPageQueryModel = Query(),
+    query_db: AsyncSession = Depends(get_db),
+):
     """
     获取所有会员信息
     :param query_db: 数据库会话
     :return: 成员列表
     """
     # 获取分页数据
-    member_page_query_result = await MemberService.get_all_members(
+    member_page_query_result = await MemberService.get_member_list_services(
         query_db, member_page_query, is_page=True
     )
     logger.info('获取成功')
