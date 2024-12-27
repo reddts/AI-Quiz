@@ -212,7 +212,7 @@ python3 app.py --env=prod
 
 | 图片 | 说明 |
 |---|---|
-| ![QQ交流群](https://github.com/reddts/AI-Quiz/blob/main/show_pic/qrcode_qqqun.jpg=10remx) | QQ交流群 |
+| ![QQ交流群](https://github.com/reddts/AI-Quiz/blob/main/show_pic/qrcode_qqqun.jpg =10remx) | QQ交流群 |
 | ![支付宝](https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg) | 支付宝 |
 
 <style>
