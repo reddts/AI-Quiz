@@ -32,33 +32,31 @@ def generate_member_table(query_params: Dict):
         showQuickJumper=True,
         total=table_info['total'],
     )
+    gender_map = {0: "男性", 1: "女性", 2: "未知", None: "未知"}
     for item in table_data:
+        item['gender'] = gender_map.get(int(item.get('gender')), "未知")
         if item['status'] == SysNormalDisableConstant.NORMAL:
-            item['status'] = dict(checked=True, disabled=item['member_id'] == 1)
+            item['status'] = dict(checked=True, disabled=False)
         else:
-            item['status'] = dict(checked=False, disabled=item['member_id'] == 1)
+            item['status'] = dict(checked=False, disabled=False)
         item['create_time'] = TimeFormatUtil.format_time(
             item.get('create_time')
         )
         item['key'] = str(item['member_id'])
-        if item['member_id'] == 1:
-            item['operation'] = []
-        else:
-            item['operation'] = [
-                {'title': '修改', 'icon': 'antd-edit'}
-                if PermissionManager.check_perms('member:edit')
-                else None,
-                {'title': '删除', 'icon': 'antd-delete'}
-                if PermissionManager.check_perms('member:remove')
-                else None,
-                {'title': '重置密码', 'icon': 'antd-key'}
-                if PermissionManager.check_perms('member:resetPwd')
-                else None,
-            ]
+        
+        item['operation'] = [
+            {'title': '修改', 'icon': 'antd-edit'}
+            if PermissionManager.check_perms('member:edit')
+            else None,
+            {'title': '删除', 'icon': 'antd-delete'}
+            if PermissionManager.check_perms('member:remove')
+            else None,
+            {'title': '重置密码', 'icon': 'antd-key'}
+            if PermissionManager.check_perms('member:resetPwd')
+            else None,
+        ]
 
     return [table_data, table_pagination]
-
-
 
 @app.callback(
     output=dict(
@@ -296,7 +294,6 @@ def add_edit_member_modal(
         )
     ):
         if trigger_id == {'index': 'add', 'type': 'member-operation-button'}:
-            detail_info = MemberApi.get_member(member_id='')
             member_info = dict(
                 nick_name=None,
                 phonenumber=None,

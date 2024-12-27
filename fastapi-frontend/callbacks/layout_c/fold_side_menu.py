@@ -44,9 +44,7 @@ app.clientside_callback(
                 'antd-menu-unfold',
                 {display: 'none'},
                 {display: 'none'},
-                {display: 'none'},
                 '6',
-                'none',
                 'none',
                 'none',
             ];
@@ -58,9 +56,7 @@ app.clientside_callback(
                 'antd-menu-unfold',
                 {display: 'none'},
                 {display: 'none'},
-                {display: 'none'},
                 '12',
-                'none',
                 'none',
                 'none',
             ];
@@ -72,11 +68,9 @@ app.clientside_callback(
                 'antd-menu-fold',
                 {},
                 {},
-                {},
                 '1',
                 '21',
                 '6',
-                '3',
             ];
         }
     }
@@ -88,11 +82,9 @@ app.clientside_callback(
         Output('fold-side-menu-icon', 'icon', allow_duplicate=True),
         Output('header-breadcrumb-col', 'style'),
         Output('header-search-col', 'style'),
-        Output('header-gitee-col', 'style'),
         Output('fold-side-menu-col', 'flex'),
         Output('header-breadcrumb-col', 'flex'),
         Output('header-search-col', 'flex'),
-        Output('header-gitee-col', 'flex'),
     ],
     Input('responsive-layout-container', 'responsive'),
     prevent_initial_call=True,

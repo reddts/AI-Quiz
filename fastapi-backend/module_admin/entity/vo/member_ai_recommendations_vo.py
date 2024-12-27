@@ -10,7 +10,7 @@ class MemberAIRecommendationsVO(BaseModel):
     answer_id: Optional[int] = Field(None, description="关联到用户量表回答表")
     question: Optional[str] = Field(None, description="用户提出的问题内容")
     recommendation: Optional[str] = Field(None, description="AI 建议的答案")
-    created_at: Optional[datetime] = Field(None, description="建议生成的时间")
+    create_at: Optional[datetime] = Field(None, description="建议生成的时间")
 
     class Config:
         orm_mode = True

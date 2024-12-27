@@ -254,6 +254,7 @@ def render(*args, **kwargs):
                                                 {
                                                     'dataIndex': 'notice_id',
                                                     'title': '序号',
+                                                    'width': '6%',
                                                     'renderOptions': {
                                                         'renderType': 'ellipsis'
                                                     },
@@ -261,6 +262,7 @@ def render(*args, **kwargs):
                                                 {
                                                     'dataIndex': 'notice_title',
                                                     'title': '公告标题',
+                                                    'width': '35%',
                                                     'renderOptions': {
                                                         'renderType': 'ellipsis'
                                                     },

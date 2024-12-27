@@ -11,19 +11,23 @@ class MemberModel(BaseModel):
     """
     model_config = ConfigDict(from_attributes=True)
 
-    member_id: Optional[int] = Field(None, description="用户ID")
-    member_name: Optional[str] = Field(None, max_length=100, description="用户姓名")
-    nick_name: Optional[str] = Field(default=None, description='用户昵称')
+    member_id: Optional[int] = Field(None, description="会员ID")
+    member_name: Optional[str] = Field(None, max_length=100, description="会员姓名")
+    nick_name: Optional[str] = Field(default=None, description='会员昵称')
     avatar: Optional[str] = Field(default=None, description='头像地址')
     password: Optional[str] = Field(default=None, description='密码')
     status: Optional[Literal['0', '1']] = Field(default=None, description='帐号状态（0正常 1停用）')
-    age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
-    email: Optional[EmailStr] = Field(None, description="用户邮箱")
+    age: Optional[int] = Field(None, description="会员年龄")
+    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='会员性别（0男 1女 2未知）')
+    email: Optional[EmailStr] = Field(None, description="会员邮箱")
+    birthday:  Optional[datetime] = Field(default=None, description='生日')
     phonenumber: Optional[str] = Field(default=None, description='手机号码')
+    del_flag: Optional[int] = Field(default=0, description="会员ID")
+    create_by: Optional[str] = Field(default=None, description='创建者')
     login_ip: Optional[str] = Field(default=None, description='最后登录IP')
     login_date: Optional[datetime] = Field(default=None, description='最后登录时间')
-    created_at: Optional[datetime] = Field(None, description="创建时间")
+    create_at: Optional[datetime] = Field(None, description="创建时间")
+    update_by: Optional[str] = Field(default=None, description='更新者')
     update_at: Optional[datetime] = Field(default=None, description='更新时间')
     remark: Optional[str] = Field(default=None, description='备注')
 
@@ -36,14 +40,14 @@ class MemberModel(BaseModel):
             raise ModelValidatorException(message='密码不能包含非法字符：< > " \' \\ |')
 
 
-    @Xss(field_name='member_name', message='用户账号不能包含脚本字符')
-    @NotBlank(field_name='member_name', message='用户账号不能为空')
-    @Size(field_name='member_name', min_length=0, max_length=30, message='用户账号长度不能超过30个字符')
+    @Xss(field_name='member_name', message='会员账号不能包含脚本字符')
+    @NotBlank(field_name='member_name', message='会员账号不能为空')
+    @Size(field_name='member_name', min_length=3, max_length=30, message='会员账号长度必须在3到30个字符之间')
     def get_member_name(self):
         return self.member_name
 
-    @Xss(field_name='nick_name', message='用户昵称不能包含脚本字符')
-    @Size(field_name='nick_name', min_length=0, max_length=30, message='用户昵称长度不能超过30个字符')
+    @Xss(field_name='nick_name', message='会员昵称不能包含脚本字符')
+    @Size(field_name='nick_name', min_length=0, max_length=30, message='会员昵称长度不能超过30个字符')
     def get_nick_name(self):
         return self.nick_name
 
@@ -62,37 +66,31 @@ class MemberModel(BaseModel):
         self.get_email()
         self.get_phonenumber()
 
-class UserDetailModel(BaseModel):
+class MemberInfoModel(MemberModel):
     """
-    获取用户详情信息响应模型
+    获取会员详情信息响应模型
     """
-
-    data: Optional[Union[str, None]] = Field(default=None, description='用户信息')
     
 
-class CreateMemberVO(BaseModel):
+class CreateMemberModel(MemberModel):
     """
     创建会员对应pydantic模型
     """
-    name: Optional[str] = Field(None, max_length=100, description="用户姓名")
-    age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
-    email: Optional[EmailStr] = Field(None, description="用户邮箱")
+    type: Optional[str] = Field(default=None, description='操作类型')
 
-    class Config:
-        orm_mode = True
-
-class UpdateMemberVO(BaseModel):
+class EditMemberModel(CreateMemberModel):
     """
-    更新会员对应pydantic模型
-    """    
-    name: Optional[str] = Field(None, max_length=100, description="用户姓名")
-    age: Optional[int] = Field(None, description="用户年龄")
-    gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='用户性别（0男 1女 2未知）')
-    email: Optional[EmailStr] = Field(None, description="用户邮箱")
+    编辑会员模型
+    """
 
-    class Config:
-        orm_mode = True
+class DeleteMemberModel(BaseModel):
+    """
+    删除会员模型
+    """
+    member_ids: str = Field(description='需要删除的会员ID')
+    update_by: Optional[str] = Field(default=None, description='更新者')
+    update_at: Optional[datetime] = Field(default=None, description='更新时间')
+
 
 class MemberQueryModel(MemberModel):
     """

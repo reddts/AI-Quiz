@@ -1,4 +1,5 @@
 from datetime import datetime, time
+from sqlalchemy import and_, delete, desc, func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from module_admin.entity.do.member_do import Member
@@ -15,17 +16,18 @@ class MemberDao:
     提供了基本的 CRUD 操作与数据库交互方法。
     """
 
-    @staticmethod
-    async def get_member_by_id(db: AsyncSession, user_id: int) -> Optional[Member]:
+    @classmethod
+    async def get_member_detail_by_id(cls, db: AsyncSession, member_id: int):
         """
-        根据用户ID获取用户信息
-        :param db: 数据库会话
-        :param user_id: 用户ID
-        :return: 用户信息或 None
+        根据member_id获取会员详细信息
+
+        :param db: orm对象
+        :param member_id: 会员id
+        :return: 当前member_id的会员信息对象
         """
-        result = await db.execute(select(Member).where(Member.user_id == user_id))
-        member = result.scalar_one_or_none()
-        return member
+        member_info = (await db.execute(select(Member).where(Member.del_flag == '0', Member.member_id == member_id).distinct())).scalars().first()
+        
+        return member_info
 
     @classmethod
     async def get_member_list(
@@ -50,7 +52,7 @@ class MemberDao:
                 Member.phonenumber.like(f'%{query_object.phonenumber}%') if query_object.phonenumber else True,
                 Member.status == query_object.status if query_object.status else True,
                 Member.gender == query_object.gender if query_object.gender else True,
-                Member.created_at.between(
+                Member.create_at.between(
                     datetime.combine(datetime.strptime(query_object.begin_time, '%Y-%m-%d'), time(00, 00, 00)),
                     datetime.combine(datetime.strptime(query_object.end_time, '%Y-%m-%d'), time(23, 59, 59)),
                 )
@@ -64,52 +66,74 @@ class MemberDao:
 
         return member_list
 
-    @staticmethod
-    async def create_member(db: AsyncSession, member_data: dict) -> Member:
+    @classmethod
+    async def get_member_by_info(cls, db: AsyncSession, member: MemberModel):
         """
-        创建一个新用户
-        :param db: 数据库会话
-        :param member_data: 用户数据字典
-        :return: 新创建的用户对象
-        """
-        new_member = Member(**member_data)
-        db.add(new_member)
-        await db.commit()
-        await db.refresh(new_member)
-        return new_member
+        根据会员参数获取会员信息
 
-    @staticmethod
-    async def update_member(db: AsyncSession, user_id: int, update_data: dict) -> Optional[Member]:
+        :param db: orm对象
+        :param member: 会员参数
+        :return: 当前会员参数的会员信息对象
         """
-        更新用户信息
-        :param db: 数据库会话
-        :param user_id: 用户ID
-        :param update_data: 更新的数据字典
-        :return: 更新后的用户对象
-        """
-        member = await MemberDao.get_member_by_id(db, user_id)
-        if not member:
-            raise HTTPException(status_code=404, detail="Member not found")
-        
-        for key, value in update_data.items():
-            setattr(member, key, value)
+        query_member_info = (
+            (
+                await db.execute(
+                    select(Member)
+                    .where(
+                        Member.del_flag == '0',
+                        Member.member_name == member.member_name if member.member_name else True,
+                        Member.phonenumber == member.phonenumber if member.phonenumber else True,
+                        Member.email == member.email if member.email else True,
+                    )
+                    .order_by(desc(Member.create_at))
+                    .distinct()
+                )
+            )
+            .scalars()
+            .first()
+        )
 
-        await db.commit()
-        await db.refresh(member)
-        return member
-
-    @staticmethod
-    async def delete_member(db: AsyncSession, user_id: int) -> bool:
+        return query_member_info
+    
+    @classmethod
+    async def add_member_dao(cls, db: AsyncSession, member: MemberModel):
         """
-        删除用户
-        :param db: 数据库会话
-        :param user_id: 用户ID
-        :return: 是否删除成功
-        """
-        member = await MemberDao.get_member_by_id(db, user_id)
-        if not member:
-            raise HTTPException(status_code=404, detail="Member not found")
+        新增用户数据库操作
 
-        await db.delete(member)
-        await db.commit()
-        return True
+        :param db: orm对象
+        :param member: 用户对象
+        :return: 新增校验结果
+        """
+        db_member = Member(**member.model_dump())
+        db.add(db_member)
+        await db.flush()
+
+        return db_member
+    
+
+    @classmethod
+    async def edit_member_dao(cls, db: AsyncSession, member: dict):
+        """
+        编辑会员数据库操作
+
+        :param db: orm对象
+        :param member: 需要更新的会员字典
+        :return: 编辑校验结果
+        """
+        await db.execute(update(Member), [member])
+
+
+    @classmethod
+    async def delete_member_dao(cls, db: AsyncSession, member: MemberModel):
+        """
+        删除会员数据库操作
+
+        :param db: orm对象
+        :param member: 会员对象
+        :return:
+        """
+        await db.execute(
+            update(Member)
+            .where(Member.member_id == member.member_id)
+            .values(del_flag='2', update_by=member.update_by, update_at=member.update_at)
+        )

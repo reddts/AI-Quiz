@@ -67,22 +67,6 @@ def render_head_content():
             flex='6',
         ),
         # 页首开源项目地址
-        fac.AntdCol(
-            html.A(
-                html.Img(
-                    src='https://gitee.com/insistence2022/dash-fastapi-admin/badge/star.svg?theme=dark'
-                ),
-                href='https://gitee.com/insistence2022/dash-fastapi-admin',
-                target='_blank',
-                style={
-                    'height': '100%',
-                    'display': 'flex',
-                    'alignItems': 'center',
-                },
-            ),
-            id='header-gitee-col',
-            flex='3',
-        ),
         # 页首右侧用户信息区域
         fac.AntdCol(
             fac.AntdSpace(
