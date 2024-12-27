@@ -2,7 +2,7 @@
 	<img alt="logo" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/logo_120.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AI-Quiz</h1>
-<h4 align="center">Api用python开发的，基于Dash和FastAPI的评测系统，引入了AI分析</h4>
+<h4 align="center">本平台是采FastApi框架的python泛化人工智能平台，这是一系列人工智能分析平台的基础，AI-Quiz是基于这个平台打造的一款心理评测和趣味测试小程序，通过科学的量表帮助您熟悉自己，了解自己，同时引入了AI接口，帮助您分析目前现状，为迷茫的你指引方向</h4>
 <p align="center">
 	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/github/stars/reddts/AI-Quiz?style=social"></a>
 	<a href="https://github.com/reddts/AI-Quiz"><img src="https://img.shields.io/badge/AI__Quiz-v1.0.0-brightgreen.svg"></a>
@@ -13,8 +13,19 @@
 
 ## 平台简介
 
-AI-Quiz是一套基于python开发的在线评测系统，整体采用fast-api框架，后端通过api提供服务，后端的api采用python开发，便于接入AI接口，管理端采用python进行开发，前端，也就是用户端，采用uniapp开发，支持发布小程序和h5，没有PC端版本。ui采用图鸟UI 和taiwind。美观大方。
-Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+本平台是一款基于 Python 开发的通用人工智能平台，采用 FastAPI 框架，专注于智能分析功能的构建，是未来多款智能产品的技术基础。AI-Quiz 是平台上推出的一款核心应用，定位于心理测试与趣味测试领域，通过科学化和智能化的方式，帮助用户更好地了解自己。
+
+### 心理测试
+AI-Quiz 通过整合专业的心理学量表和严谨的数据分析模型，提供多种科学心理评测，例如人格测试、情绪状态评估、压力与应对能力分析等。这些测试基于心理学研究和权威数据支持，精准解析用户的心理状态。通过回答量身定制的问题，用户可以深入探索自己的内在性格、潜在优势与改善方向。AI 还可以根据评测结果提供具体建议，帮助用户制定发展目标或应对策略。
+
+### 趣味测试
+在提供科学评测的基础上，AI-Quiz 还加入了多种趣味测试功能，让用户在娱乐中发现自我。这些测试涵盖职业匹配、性格色彩、社交能力评估等轻松主题，结果生动有趣，容易被理解和分享。通过趣味化的内容设计，平台降低了心理测试的门槛，让测试过程更加贴近日常生活，同时激发用户的探索欲望。
+
+### 技术架构与用户体验
+AI-Quiz 的后端基于 FastAPI 开发，通过高效 API 服务支撑心理与趣味测试功能，支持与多种 AI 接口对接，提升分析精度和个性化体验。管理端同样采用 Python 构建，便于后台数据管理与扩展。用户端采用 UniApp 开发，支持小程序与 H5 平台，随时随地接入服务。
+UI 设计结合了图鸟 UI 和 Tailwind CSS，界面清新简约，注重用户体验，既具有专业性又不失趣味性。
+
+AI-Quiz 以科学的心理学基础、智能化的分析方式和趣味化的内容设计，为用户提供一个自我探索和成长的全新途径，是心理测试与趣味测试领域的创新产品。
 
 * 管理前端采用Dash、feffery-antd-components、feffery-utils-components。
 * 后端采用FastAPI、sqlalchemy、MySQL（PostgreSQL）、Redis、OAuth2 & Jwt。
@@ -23,7 +34,7 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 * 前端采用uniapp
 * 支持多种AI接口，目前支持openai等，更多的ai接口接入中
 * 支持多种测试量表，量表也在不断添加中。
-* 特别鸣谢：<u>[insistence](https://github.com/insistence/Dash-FastAPI-Admin)</u> 。
+* 特别鸣谢：<u>[insistence](https://github.com/insistence/Dash-FastAPI-Admin)</u> 提供的底盘，以及造轮子的前辈们 。
 
 ## 版本更迭记录
 * v1.0.0 完成基本框架
@@ -51,6 +62,20 @@ Dash-FastAPI-Admin是一套全部开源的快速开发平台，毫无保留给�
 17. 量表管理：管理量表，增加修改删除量表及其关联的表单项
 
 ## 前端uniapp功能
+开发中
+
+## 开发进度
+| 序号 | 开发内容 | 完成情况 | 备注 |
+| --- | --- | --- | --- |
+| 1 | 后台框架的修改适配 | 已完成 |   |
+| 2 | 会员管理功能 | 开发中 |   |
+| 3 | 量表管理功能 | 待开发 |   |
+| 4 | AI接口的配置 | 待开发 |   |
+| 5 | AI接口的开发 | 待开发 |   |
+| 6 | 支付功能的开发 | 待开发 |   |
+| 7 | 前端API接口框架开发 | 待开发 |   |
+| 8 | 前端API接口功能开发 | 待开发 |   |
+| 9 | 前端界面的开发 | 待开发 |   |
 
 
 ## 演示图
