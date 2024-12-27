@@ -211,7 +211,7 @@ python3 app.py --env=prod
 如果有对本项目及FastAPI和AI感兴趣的朋友，欢迎入群交流。如果你觉得这个项目帮助到了你，你可以请作者喝杯咖啡表示鼓励☕。扫描下面微信二维码加入QQ群，加群请备注AI-Quiz。请作者喝咖啡也请备注AI-Quiz。
 <table>
     <tr>
-        <td style="width: 50%"><img alt="QQ交流群" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/qrcode_qqqun.jpg">QQ交流群</td>
+        <td style="width: 50%;max-width:10rem"><img alt="QQ交流群" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/qrcode_qqqun.jpg">QQ交流群</td>
         <td style="width: 50%"><img alt="zfb" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg"></td>
     </tr>
 </table>
