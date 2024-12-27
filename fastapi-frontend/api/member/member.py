@@ -150,46 +150,6 @@ class MemberApi:
             json=dict(member_id=member_id, status=status),
         )
 
-    @classmethod
-    def get_member_profile(cls):
-        """
-        查询会员个人信息接口
-
-        :return:
-        """
-        return api_request(
-            url='/member/profile',
-            method=ApiMethod.GET,
-        )
-
-    @classmethod
-    def update_member_profile(cls, json: dict):
-        """
-        修改会员个人信息接口
-
-        :param json: 修改会员个人信息参数
-        :return:
-        """
-        return api_request(
-            url='/member/profile',
-            method=ApiMethod.PUT,
-            json=json,
-        )
-
-    @classmethod
-    def update_member_pwd(cls, old_password: str, new_password: str):
-        """
-        会员个人密码重置接口
-
-        :param old_password: 会员旧密码
-        :param new_password: 会员新密码
-        :return:
-        """
-        return api_request(
-            url='/member/profile/updatePwd',
-            method=ApiMethod.PUT,
-            params=dict(old_password=old_password, new_password=new_password),
-        )
 
     @classmethod
     def upload_avatar(cls, files: dict):

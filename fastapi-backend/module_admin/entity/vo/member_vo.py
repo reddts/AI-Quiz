@@ -19,16 +19,16 @@ class MemberModel(BaseModel):
     status: Optional[Literal['0', '1']] = Field(default=None, description='帐号状态（0正常 1停用）')
     age: Optional[int] = Field(None, description="会员年龄")
     gender: Optional[Literal['0', '1', '2']] = Field(default=None, description='会员性别（0男 1女 2未知）')
-    email: Optional[EmailStr] = Field(None, description="会员邮箱")
-    birthday:  Optional[datetime] = Field(default=None, description='生日')
+    email: Optional[EmailStr] = Field(None, description="会员邮箱")    
     phonenumber: Optional[str] = Field(default=None, description='手机号码')
     del_flag: Optional[int] = Field(default=0, description="会员ID")
-    create_by: Optional[str] = Field(default=None, description='创建者')
+    birthday:  Optional[datetime] = Field(default=None, description='生日')
     login_ip: Optional[str] = Field(default=None, description='最后登录IP')
     login_date: Optional[datetime] = Field(default=None, description='最后登录时间')
+    create_by: Optional[str] = Field(default=None, description='创建者')
     create_at: Optional[datetime] = Field(None, description="创建时间")
-    update_by: Optional[str] = Field(default=None, description='更新者')
     update_at: Optional[datetime] = Field(default=None, description='更新时间')
+    update_by: Optional[str] = Field(default=None, description='更新者')    
     remark: Optional[str] = Field(default=None, description='备注')
 
     @model_validator(mode='after')
@@ -108,3 +108,10 @@ class MemberPageQueryModel(MemberQueryModel):
 
     page_num: int = Field(default=1, description='当前页码')
     page_size: int = Field(default=10, description='每页记录数')
+
+class MemberProfileModel(BaseModel):
+    """
+    获取会员信息响应模型
+    """
+
+    data: Union[MemberInfoModel, None] = Field(description='会员信息')

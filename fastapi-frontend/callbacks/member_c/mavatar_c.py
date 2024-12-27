@@ -3,17 +3,17 @@ import uuid
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from io import BytesIO
-from api.member import MemberApi
+from api.member.member import MemberApi
 from server import app
 from utils.feedback_util import MessageManager
 
 
 @app.callback(
     [
-        Output('avatar-cropper-modal', 'visible', allow_duplicate=True),
-        Output('avatar-cropper', 'src', allow_duplicate=True),
+        Output('member-avatar-cropper-modal', 'visible', allow_duplicate=True),
+        Output('member-avatar-cropper', 'src', allow_duplicate=True),
     ],
-    Input('avatar-edit-click', 'n_clicks'),
+    Input('member-avatar-edit-click', 'n_clicks'),
     State('member-avatar-image-info', 'src'),
     prevent_initial_call=True,
 )
@@ -28,8 +28,8 @@ def avatar_cropper_modal_visible(n_clicks, member_avatar_image_info):
 
 
 @app.callback(
-    Output('avatar-cropper', 'src', allow_duplicate=True),
-    Input('avatar-upload-choose', 'contents'),
+    Output('member-avatar-cropper', 'src', allow_duplicate=True),
+    Input('member-avatar-upload-choose', 'contents'),
     prevent_initial_call=True,
 )
 def upload_member_avatar(contents):
@@ -64,7 +64,7 @@ app.clientside_callback(
             }
         }
     """,
-    [Output('avatar-cropper', 'zoom'), Output('avatar-cropper', 'rotate')],
+    [Output('member-avatar-cropper', 'zoom'), Output('member-avatar-cropper', 'rotate')],
     [
         Input('zoom-out', 'nClicks'),
         Input('zoom-in', 'nClicks'),
@@ -77,13 +77,13 @@ app.clientside_callback(
 
 @app.callback(
     [
-        Output('avatar-cropper-modal', 'visible', allow_duplicate=True),
+        Output('member-avatar-cropper-modal', 'visible', allow_duplicate=True),
         Output('member-avatar-image-info', 'key'),
-        Output('avatar-info', 'key'),
+        Output('member-avatar-info', 'key'),
     ],
-    Input('change-avatar-submit', 'nClicks'),
-    State('avatar-cropper', 'croppedImageData'),
-    running=[[Output('change-avatar-submit', 'loading'), True, False]],
+    Input('member-change-avatar-submit', 'nClicks'),
+    State('member-avatar-cropper', 'croppedImageData'),
+    running=[[Output('member-change-avatar-submit', 'loading'), True, False]],
     prevent_initial_call=True,
 )
 def change_member_avatar_callback(submit_click, avatar_data):

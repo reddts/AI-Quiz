@@ -13,7 +13,7 @@ from utils.common_util import ValidateUtil
 from utils.feedback_util import MessageManager
 from utils.permission_util import PermissionManager
 from utils.time_format_util import TimeFormatUtil
-
+from views.member import mavatar
 
 def generate_member_table(query_params: Dict):
     """
@@ -39,8 +39,8 @@ def generate_member_table(query_params: Dict):
             item['status'] = dict(checked=True, disabled=False)
         else:
             item['status'] = dict(checked=False, disabled=False)
-        item['create_time'] = TimeFormatUtil.format_time(
-            item.get('create_time')
+        item['create_at'] = TimeFormatUtil.format_time(
+            item.get('create_at')
         )
         item['key'] = str(item['member_id'])
         
@@ -256,6 +256,7 @@ app.clientside_callback(
             'member-form', 'helps', allow_duplicate=True
         ),
         modal_type=Output('member-modal_type-store', 'data'),
+        m_avatar_container=Output('member-avatar-container', 'children'),
     ),
     inputs=dict(
         operation_click=Input(
@@ -315,6 +316,7 @@ def add_edit_member_modal(
                 form_label_validate_status=None,
                 form_label_validate_info=None,
                 modal_type={'type': 'add'},
+                m_avatar_container = mavatar.render(),
             )
         elif trigger_id == {
             'index': 'edit',
@@ -339,11 +341,12 @@ def add_edit_member_modal(
                 form_label_validate_status=None,
                 form_label_validate_info=None,
                 modal_type={'type': 'edit'},
+                m_avatar_container = mavatar.render(member_info['avatar']),
             )
 
     raise PreventUpdate
 
-
+#新增，修改弹窗确认回调
 @app.callback(
     output=dict(
         form_label_validate_status=Output(
@@ -384,18 +387,7 @@ def member_confirm(confirm_trigger, modal_type, form_value, form_label):
             for item in [form_value.get(k) for k in form_label_list]
         ):
             params_add = form_value
-            params_add['post_ids'] = (
-                [int(item) for item in params_add.get('post_ids')]
-                if params_add.get('post_ids')
-                else []
-            )
-            params_add['role_ids'] = (
-                [int(item) for item in params_add.get('role_ids')]
-                if params_add.get('role_ids')
-                else []
-            )
             params_edit = params_add.copy()
-            params_edit['role'] = []
             modal_type = modal_type.get('type')
             if modal_type == 'add':
                 MemberApi.add_member(params_add)

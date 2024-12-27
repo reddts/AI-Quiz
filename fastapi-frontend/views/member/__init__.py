@@ -1,6 +1,5 @@
 import feffery_antd_components as fac
 from dash import dcc, html
-from api.member.member import MemberApi
 from callbacks.member_c import member_c
 from components import ManuallyUpload
 from components.ApiRadioGroup import ApiRadioGroup
@@ -384,7 +383,15 @@ def render(*args, **kwargs):
         fac.AntdModal(
             [
                 fac.AntdForm(
-                    [
+                    [   
+                        html.Div(
+                            id='member-avatar-container',
+                            style={
+                                'textAlign': 'center',
+                                'marginBottom': '10px',
+                            },
+                        ),
+                        html.Br(),
                         html.Div(
                             fac.AntdRow(
                                 [
@@ -457,7 +464,7 @@ def render(*args, **kwargs):
                                 fac.AntdCol(
                                     fac.AntdFormItem(
                                         fac.AntdDatePicker(
-                                            id='member-birthday',
+                                            id='birthday',
                                             showTime=True,  # 启用时间选择
                                             defaultValue='1980-01-01 08:00:00',
                                         ),
