@@ -210,21 +210,7 @@ python3 app.py --env=prod
 ## 交流与赞助
 如果有对本项目及FastAPI和AI感兴趣的朋友，欢迎入群交流。如果你觉得这个项目帮助到了你，你可以请作者喝杯咖啡表示鼓励☕。扫描下面微信二维码加入QQ群，加群请备注AI-Quiz。请作者喝咖啡也请备注AI-Quiz。
 
-| 图片 | 说明 |
+| QQ交流群 | 支付宝 |
 |---|---|
-| ![QQ交流群](https://github.com/reddts/AI-Quiz/blob/main/show_pic/qqqun.png) | QQ交流群 |
-| ![支付宝](https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg) | 支付宝 |
-
-<style>
-table img {
-  max-width: 10rem;
-}
-</style>
-
-
-<table>
-    <tr>
-        <td style="width: 50%"><img alt="QQ交流群" style="max-width:20rem" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/qrcode_qqqun.jpg"><br><center>QQ交流群</center></td>
-        <td style="width: 50%"><img alt="zfb" src="https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg"></td>
-    </tr>
-</table>
+| ![QQ交流群](https://github.com/reddts/AI-Quiz/blob/main/show_pic/qqqun.png) | ![支付宝](https://github.com/reddts/AI-Quiz/blob/main/show_pic/zfb.jpg) |
+| QQ交流群 | 支付宝 |
