@@ -3,14 +3,14 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 
-class OnlineModel(BaseModel):
+class OnlinembModel(BaseModel):
     """
-    在线用户对应pydantic模型
+    在线会员对应pydantic模型
     """
 
     token_id: Optional[str] = Field(default=None, description='会话编号')
-    user_name: Optional[str] = Field(default=None, description='用户名称')
-    dept_name: Optional[str] = Field(default=None, description='部门名称')
+    member_name: Optional[str] = Field(default=None, description='会员名称')
+    visit_name: Optional[str] = Field(default=None, description='访问内容')
     ipaddr: Optional[str] = Field(default=None, description='登录IP地址')
     login_location: Optional[str] = Field(default=None, description='登录地址')
     browser: Optional[str] = Field(default=None, description='浏览器类型')
@@ -18,27 +18,27 @@ class OnlineModel(BaseModel):
     login_time: Optional[datetime] = Field(default=None, description='登录时间')
 
 
-class OnlineQueryModel(OnlineModel):
+class OnlinembQueryModel(OnlinembModel):
     """
-    在线用户不分页查询模型
+    在线会员不分页查询模型
     """
 
     begin_time: Optional[str] = Field(default=None, description='开始时间')
     end_time: Optional[str] = Field(default=None, description='结束时间')
 
 
-class OnlinePageQueryModel(OnlineQueryModel):
+class OnlinembPageQueryModel(OnlinembQueryModel):
     """
-    在线用户分页查询模型
+    在线会员分页查询模型
     """
 
     page_num: int = Field(default=1, description='当前页码')
     page_size: int = Field(default=10, description='每页记录数')
 
 
-class DeleteOnlineModel(BaseModel):
+class DeleteOnlinembModel(BaseModel):
     """
-    强退在线用户模型
+    强退在线会员模型
     """
 
     token_ids: str = Field(description='需要强退的会话编号')
