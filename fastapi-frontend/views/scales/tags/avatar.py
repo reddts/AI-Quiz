@@ -1,37 +1,37 @@
 import feffery_antd_components as fac
 import feffery_utils_components as fuc
 from dash import html, dcc
-from callbacks.member_c import mavatar_c  # noqa: F401
+from callbacks.scales_c import avatar_c  # noqa: F401
 from config.env import ApiConfig
 
 
-def render(member_id, avatar_path):
+def render(tags_id, avatar_path):
     return [
         html.Div(
             [
                 fac.AntdImage(
-                    id='member-avatar-image-info',
+                    id='tags-avatar-image-info',
                     src=f'{ApiConfig.BaseUrl}{avatar_path}'
                     if avatar_path
-                    else '/assets/imgs/profile.jpg',
+                    else '/assets/imgs/tags.png',
                     preview=False,
                     height='120px',
                     width='120px',
                     style={'borderRadius': '50%'},
                 )
             ],
-            id='member-avatar-edit-click',
-            className='member-info-head',
+            id='tags-avatar-edit-click',
+            className='tags-info-head',
         ),
         fuc.FefferyStyle(
             rawStyle="""
-            .member-info-head {
+            .tags-info-head {
               position: relative;
               display: inline-block;
               height: 120px;
             }
 
-            .member-info-head:hover:after {
+            .tags-info-head:hover:after {
               content: '+';
               position: absolute;
               left: 0;
@@ -59,21 +59,21 @@ def render(member_id, avatar_path):
                                 html.Div(
                                     [
                                         fuc.FefferyImageCropper(
-                                            id='member-avatar-cropper',
+                                            id='tags-avatar-cropper',
                                             alt='avatar',
                                             aspectRatio=1,
                                             dragMode='move',
                                             cropBoxMovable=False,
                                             cropBoxResizable=False,
                                             wheelZoomRatio=0.01,
-                                            preview='#member-avatar-image-preview',
+                                            preview='#tags-avatar-image-preview',
                                             style={
                                                 'width': '100%',
                                                 'height': '100%',
                                             },
                                         )
                                     ],
-                                    id='member-avatar-cropper-container',
+                                    id='tags-avatar-cropper-container',
                                     style={'height': '350px', 'width': '100%'},
                                 ),
                             ],
@@ -82,7 +82,7 @@ def render(member_id, avatar_path):
                         fac.AntdCol(
                             [
                                 html.Div(
-                                    id='member-avatar-image-preview',
+                                    id='tags-avatar-image-preview',
                                     className='avatar-upload-preview',
                                 ),
                                 fuc.FefferyStyle(
@@ -111,7 +111,7 @@ def render(member_id, avatar_path):
                                     '选择',
                                     icon=fac.AntdIcon(icon='antd-cloud-upload'),
                                 ),
-                                id='member-avatar-upload-choose',
+                                id='tags-avatar-upload-choose',
                                 accept='.jpeg,.jpg,.png',
                                 max_size=10 * 1024 * 1024,
                             ),
@@ -150,7 +150,7 @@ def render(member_id, avatar_path):
                         fac.AntdCol(
                             fac.AntdButton(
                                 '提交',
-                                id='member-change-avatar-submit',
+                                id='tags-change-avatar-submit',
                                 type='primary',
                             ),
                             span=7,
@@ -159,13 +159,13 @@ def render(member_id, avatar_path):
                     gutter=10,
                 ),
                 dcc.Input(
-                    id='member-id-hidden',
+                    id='tags-id-hidden',
                     type='hidden',
-                    value=member_id,
+                    value=tags_id,
                 ),
             ],
-            id='member-avatar-cropper-modal',
-            title='修改头像',
+            id='tags-avatar-cropper-modal',
+            title='修改图标',
             width=850,
             mask=False,
         ),

@@ -3,38 +3,38 @@ import uuid
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from io import BytesIO
-from api.member.member import MemberApi
+from api.scales.tags import TagsApi
 from server import app
 from utils.feedback_util import MessageManager
 
 
 @app.callback(
     [
-        Output('member-avatar-cropper-modal', 'visible', allow_duplicate=True),
-        Output('member-avatar-cropper', 'src', allow_duplicate=True),
+        Output('tags-avatar-cropper-modal', 'visible', allow_duplicate=True),
+        Output('tags-avatar-cropper', 'src', allow_duplicate=True),
     ],
-    Input('member-avatar-edit-click', 'n_clicks'),
-    State('member-avatar-image-info', 'src'),
+    Input('tags-avatar-edit-click', 'n_clicks'),
+    State('tags-avatar-image-info', 'src'),
     prevent_initial_call=True,
 )
-def avatar_cropper_modal_visible(n_clicks, member_avatar_image_info):
+def avatar_cropper_modal_visible(n_clicks, tags_avatar_image_info):
     """
-    显示编辑头像弹窗回调
+    显示编辑图标弹窗回调
     """
     if n_clicks:
-        return [True, member_avatar_image_info]
+        return [True, tags_avatar_image_info]
 
     raise PreventUpdate
 
 
 @app.callback(
-    Output('member-avatar-cropper', 'src', allow_duplicate=True),
-    Input('member-avatar-upload-choose', 'contents'),
+    Output('tags-avatar-cropper', 'src', allow_duplicate=True),
+    Input('tags-avatar-upload-choose', 'contents'),
     prevent_initial_call=True,
 )
-def upload_member_avatar(contents):
+def upload_tags_avatar(contents):
     """
-    上传会员头像获取后端url回调
+    上传图标获取后端url回调
     """
     if contents:
         return contents
@@ -42,7 +42,7 @@ def upload_member_avatar(contents):
     raise PreventUpdate
 
 
-# 头像放大、缩小、逆时针旋转、顺时针旋转操作浏览器端回调
+# 图标放大、缩小、逆时针旋转、顺时针旋转操作浏览器端回调
 app.clientside_callback(
     """
     (zoomOut, zoomIn, rotateLeft, rotateRight) => {
@@ -64,7 +64,7 @@ app.clientside_callback(
             }
         }
     """,
-    [Output('member-avatar-cropper', 'zoom'), Output('member-avatar-cropper', 'rotate')],
+    [Output('tags-avatar-cropper', 'zoom'), Output('tags-avatar-cropper', 'rotate')],
     [
         Input('zoom-out', 'nClicks'),
         Input('zoom-in', 'nClicks'),
@@ -77,28 +77,27 @@ app.clientside_callback(
 
 @app.callback(
     [
-        Output('member-avatar-cropper-modal', 'visible', allow_duplicate=True),
-        Output('member-avatar-image-info', 'key'),
+        Output('tags-avatar-cropper-modal', 'visible', allow_duplicate=True),
+        Output('tags-avatar-image-info', 'key'),
     ],
-    Input('member-change-avatar-submit', 'nClicks'),
+    Input('tags-change-avatar-submit', 'nClicks'),
     [
-        State('member-avatar-cropper', 'croppedImageData'),
-        State('member-id-hidden', 'value')
+        State('tags-avatar-cropper', 'croppedImageData'),
+        State('tags-id-hidden', 'value')
     ],
-    running=[[Output('member-change-avatar-submit', 'loading'), True, False]],
+    running=[[Output('tags-change-avatar-submit', 'loading'), True, False]],
     prevent_initial_call=True,
 )
-def change_member_avatar_callback(submit_click, avatar_data, member_id):
+def change_tags_avatar_callback(submit_click, avatar_data, tags_id):
     """
-    提交编辑完成头像数据回调，实现更新头像操作
+    提交编辑完成图标数据回调，实现更新图标操作
     """
 
     if submit_click:
         params = dict(
-            avatarfile=BytesIO(base64.b64decode(avatar_data.split(',', 1)[1]))
+            avatarfile=BytesIO(base64.b64decode(avatar_data.split(',', 1)[1])),
         )
-        member_id=member_id
-        MemberApi.upload_avatar(member_id, params)
+        TagsApi.upload_avatar(tags_id,params)
         MessageManager.success(content='修改成功')
 
         return [

@@ -223,18 +223,18 @@ async def query_detail_member(
 
 
 #更新会员头像
-@memberController.post('/profile/avatar')
+@memberController.post('/avatar/{member_id}', dependencies=[Depends(CheckUserInterfaceAuth('member:edit'))])
 @Log(title='会员信息', business_type=BusinessType.UPDATE)
 async def change_member_profile_avatar(
     request: Request,
-    member_id: Optional[Union[int, Literal['']]] = '',
+    member_id: str,
     avatarfile: bytes = File(),
     query_db: AsyncSession = Depends(get_db),
     current_user: CurrentUserModel = Depends(LoginService.get_current_user),
 ):
     if avatarfile:
         relative_path = (
-            f'avatar/member/{datetime.now().strftime("%Y")}/{datetime.now().strftime("%m")}/{datetime.now().strftime("%d")}'
+            f'member/{datetime.now().strftime("%Y")}/{datetime.now().strftime("%m")}/{datetime.now().strftime("%d")}'
         )
         dir_path = os.path.join(UploadConfig.UPLOAD_PATH, relative_path)
         try:

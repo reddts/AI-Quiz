@@ -152,7 +152,7 @@ class MemberApi:
 
 
     @classmethod
-    def upload_avatar(cls, files: dict):
+    def upload_avatar(cls, member_id: str, files: dict):
         """
         会员头像上传接口
 
@@ -160,7 +160,7 @@ class MemberApi:
         :return:
         """
         return api_request(
-            url='/member/profile/avatar',
+            url=f'/member/avatar/{member_id}',
             method=ApiMethod.POST,
             files=files,
         )

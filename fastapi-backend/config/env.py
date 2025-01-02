@@ -13,11 +13,11 @@ class AppSettings(BaseSettings):
     """
 
     app_env: str = 'dev'
-    app_name: str = 'Dash-FasAPI-Admin'
+    app_name: str = 'AI-Quiz-Api'
     app_root_path: str = '/dev-api'
     app_host: str = '0.0.0.0'
     app_port: int = 9099
-    app_version: str = '2.0.0'
+    app_version: str = '1.0.3'
     app_reload: bool = True
     app_ip_location_query: bool = True
     app_same_time_login: bool = True
@@ -69,7 +69,7 @@ class UploadSettings:
     上传配置
     """
 
-    UPLOAD_PREFIX = '/profile'
+    UPLOAD_PREFIX = '/public'
     UPLOAD_PATH = 'df_admin/upload_path'
     UPLOAD_MACHINE = 'A'
     DEFAULT_ALLOWED_EXTENSION = [

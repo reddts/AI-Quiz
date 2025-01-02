@@ -82,12 +82,13 @@ def render_head_content():
                                 size=36,
                             ),
                             count=6,
+                            key='avatar-badge',
                             size='small',
                         ),
                         content=fac.AntdTabs(
                             items=[
                                 {
-                                    'key': '未读消息',
+                                    'key': 'unread-message-{i}',
                                     'label': '未读消息',
                                     'children': [
                                         fac.AntdSpace(
@@ -114,7 +115,7 @@ def render_head_content():
                                     ],
                                 },
                                 {
-                                    'key': '已读消息',
+                                    'key': 'readed-message-{i}',
                                     'label': '已读消息',
                                     'children': [
                                         fac.AntdSpace(

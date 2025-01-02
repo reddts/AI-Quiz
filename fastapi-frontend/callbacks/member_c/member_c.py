@@ -316,7 +316,7 @@ def add_edit_member_modal(
                 form_label_validate_status=None,
                 form_label_validate_info=None,
                 modal_type={'type': 'add'},
-                m_avatar_container = mavatar.render(),
+                m_avatar_container = mavatar.render('',''),
             )
         elif trigger_id == {
             'index': 'edit',
@@ -341,7 +341,7 @@ def add_edit_member_modal(
                 form_label_validate_status=None,
                 form_label_validate_info=None,
                 modal_type={'type': 'edit'},
-                m_avatar_container = mavatar.render(member_info['avatar']),
+                m_avatar_container = mavatar.render(member_id, member_info['avatar']),
             )
 
     raise PreventUpdate
