@@ -25,6 +25,7 @@ from module_admin.controller.user_controller import userController
 from module_admin.controller.member_controller import memberController
 from module_admin.controller.onlinemb_controller import onlinembController
 from module_admin.controller.tags_controller import tagsController
+from module_admin.controller.modeltype_controller import modeltypeController
 from sub_applications.handle import handle_sub_applications
 from utils.common_util import worship
 from utils.log_util import logger
@@ -83,6 +84,7 @@ controller_list = [
     {'router': memberController, 'tags': ['会员模块']},
     {'router': onlinembController, 'tags': ['会员模块-在线会员']},
     {'router': tagsController, 'tags': ['量表模块-标签管理']},
+    {'router': modeltypeController, 'tags': ['AI模块-模型分类管理']},
 ]
 
 for controller in controller_list:
