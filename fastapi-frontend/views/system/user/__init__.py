@@ -86,9 +86,9 @@ def render(*args, **kwargs):
                                                                 label='手机号码',
                                                             ),
                                                             fac.AntdFormItem(
-                                                                ApiSelect(
-                                                                    dict_type='sys_normal_disable',
+                                                                ApiSelect(                                                                    
                                                                     id='user-status-select',
+                                                                    dict_type='sys_normal_disable',
                                                                     placeholder='用户状态',
                                                                     style={
                                                                         'width': 240

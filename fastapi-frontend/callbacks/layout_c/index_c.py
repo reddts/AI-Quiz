@@ -58,18 +58,17 @@ def handle_tab_switch_and_create(
     new_items = dash.Patch()
 
     if trigger_id == 'index-side-menu':
-        breadcrumb_items = [
-            {'title': '首页', 'icon': 'antd-dashboard', 'href': '/'},
-        ]
+        breadcrumb_items = [{'title': '首页', 'key':'home','icon': 'antd-dashboard', 'href': '/'}]
         if currentKey == 'Index/':
             pass
         else:
-            breadcrumb_items = breadcrumb_items + [
+            breadcrumb_items  += [
                 {
                     'title': item.get('props').get('title'),
                     'icon': item.get('props').get('icon'),
+                    'key': f"breadcrumb-{index}",
                 }
-                for item in currentItemPath
+                for index, item in enumerate(currentItemPath)
             ]
         # 判断当前新选中的菜单栏项对应标签页是否已创建
         if currentKey in [item['key'] for item in origin_items]:

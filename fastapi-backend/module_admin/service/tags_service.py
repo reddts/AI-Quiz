@@ -71,7 +71,7 @@ class TagsService:
         if not await cls.check_tags_name_unique_services(query_db, page_object):
             raise ServiceException(message=f'新增标签{page_object.tags_name}失败，标签名称已存在')
         elif not await cls.check_tags_code_unique_services(query_db, page_object):
-            raise ServiceException(message=f'新增标签{page_object.tags_name}失败，标签编码已存在')
+            raise ServiceException(message=f'新增标签{page_object.tags_code}失败，标签编码已存在')
         else:
             try:
                 await TagsDao.add_tags_dao(query_db, page_object)
@@ -96,7 +96,7 @@ class TagsService:
             if not await cls.check_tags_name_unique_services(query_db, page_object):
                 raise ServiceException(message=f'修改标签{page_object.tags_name}失败，标签名称已存在')
             elif not await cls.check_tags_code_unique_services(query_db, page_object):
-                raise ServiceException(message=f'修改标签{page_object.tags_name}失败，标签编码已存在')
+                raise ServiceException(message=f'修改标签{page_object.tags_code}失败，标签编码已存在')
             else:
                 try:
                     await TagsDao.edit_tags_dao(query_db, edit_tags)

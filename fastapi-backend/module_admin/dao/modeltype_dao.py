@@ -1,7 +1,7 @@
 from sqlalchemy import delete, func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from module_admin.entity.do.modeltype_do import Modeltype
-from module_admin.entity.do.model_do import AiModel
+from module_admin.entity.do.aimodel_do import AiModel
 from module_admin.entity.vo.modeltype_vo import ModeltypeModel, ModeltypePageQueryModel
 from utils.page_util import PageUtil
 
@@ -124,6 +124,7 @@ class ModeltypeDao:
         """
         await db.execute(delete(Modeltype).where(Modeltype.type_id.in_([modeltype.type_id])))
 
+
     @classmethod
     async def count_modeltype_dao(cls, db: AsyncSession, type_id: int):
         """
@@ -138,3 +139,25 @@ class ModeltypeDao:
         ).scalar()
 
         return modeltype_count
+
+    @classmethod
+    async def get_modeltype_opt(cls, db: AsyncSession):
+        """
+        返回所有的模型分类信息
+
+        :param db: orm对象
+        :return: 模型分类列表信息对象
+        """
+        modeltype_list = (
+            (
+            await db.execute(
+                select(Modeltype)
+                .where(Modeltype.status == '0')
+                .order_by(Modeltype.type_id)
+            )
+            )
+            .scalars()
+            .all()
+        )
+
+        return modeltype_list

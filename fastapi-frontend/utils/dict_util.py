@@ -26,7 +26,7 @@ class DictManager:
                     label=item.get('dict_label'),
                     value=item.get('dict_value'),
                 )
-                for item in dict_data
+                for index, item in enumerate(dict_data)
             ]
             dict_options = [
                 dict(
@@ -35,7 +35,7 @@ class DictManager:
                     css_class=item.get('css_class'),
                     list_class=item.get('list_class'),
                 )
-                for item in dict_data
+                for index, item in enumerate(dict_data)
             ]
             TTLCacheManager.set(
                 target_key=dict_type,

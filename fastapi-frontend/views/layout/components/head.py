@@ -32,18 +32,16 @@ def render_head_content():
         # 页首面包屑区域
         fac.AntdCol(
             fac.AntdBreadcrumb(
-                items=[
-                    {'title': '首页', 'icon': 'antd-dashboard', 'href': '/#'}
-                ],
+                items=[],
                 id='header-breadcrumb',
                 style={
                     'height': '100%',
                     'display': 'flex',
                     'alignItems': 'center',
                 },
-            ),
+            ),            
             id='header-breadcrumb-col',
-            flex='21',
+            flex='24',
         ),
         # 页首中部搜索区域
         fac.AntdCol(
@@ -82,7 +80,7 @@ def render_head_content():
                                 size=36,
                             ),
                             count=6,
-                            key='avatar-badge',
+                            #key='avatar-badge',
                             size='small',
                         ),
                         content=fac.AntdTabs(
@@ -192,6 +190,7 @@ def render_head_content():
                         type='text',
                         shape='circle',
                         size='large',
+                        title='刷新',
                         style={
                             'backgroundColor': 'rgb(255 255 255 / 0%)',
                         },

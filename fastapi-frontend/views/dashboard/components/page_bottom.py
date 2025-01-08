@@ -8,7 +8,7 @@ def render_page_bottom():
     # 模拟数据
     radar_origin_data = [
         {
-            'name': '个人',
+            'name': '在线人数',
             'ref': 10,
             'koubei': 8,
             'output': 4,
@@ -16,7 +16,7 @@ def render_page_bottom():
             'hot': 7,
         },
         {
-            'name': '团队',
+            'name': '注册人数',
             'ref': 3,
             'koubei': 9,
             'output': 6,
@@ -24,7 +24,7 @@ def render_page_bottom():
             'hot': 1,
         },
         {
-            'name': '部门',
+            'name': '总金额',
             'ref': 4,
             'koubei': 1,
             'output': 6,
@@ -84,36 +84,6 @@ def render_page_bottom():
             'href': '',
             'memberLink': '',
         },
-        {
-            'id': 'xxx4',
-            'title': 'Ant Design Pro',
-            'logo': 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-            'description': '那时候我只会想自己想要什么，从不想自己拥有什么',
-            'updatedAt': '2017-07-23T00:00:00.000Z',
-            'member': '程序员日常',
-            'href': '',
-            'memberLink': '',
-        },
-        {
-            'id': 'xxx5',
-            'title': 'Bootstrap',
-            'logo': 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-            'description': '凛冬将至',
-            'updatedAt': '2017-07-23T00:00:00.000Z',
-            'member': '高逼格设计天团',
-            'href': '',
-            'memberLink': '',
-        },
-        {
-            'id': 'xxx6',
-            'title': 'React',
-            'logo': 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
-            'description': '生命就像一盒巧克力，结果往往出人意料',
-            'updatedAt': '2017-07-23T00:00:00.000Z',
-            'member': '骗你来学计算机',
-            'href': '',
-            'memberLink': '',
-        },
     ]
 
     activity_list = [
@@ -124,9 +94,8 @@ def render_page_bottom():
                 'name': '曲丽丽',
                 'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
             },
-            'group': {'name': '高逼格设计天团', 'link': 'http://github.com/'},
-            'project': {'name': '六月迭代', 'link': 'http://github.com/'},
-            'template': '新建项目',
+            'phone': '130000000',
+            'project': {'name': '心理健康', 'link': 'http://github.com/'},
         },
         {
             'id': 'trend-2',
@@ -135,43 +104,10 @@ def render_page_bottom():
                 'name': '付小小',
                 'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
             },
-            'group': {'name': '高逼格设计天团', 'link': 'http://github.com/'},
-            'project': {'name': '六月迭代', 'link': 'http://github.com/'},
-            'template': '新建项目',
+            'phone': '138000000',
+            'project': {'name': '趣味测试', 'link': 'http://github.com/'},
         },
-        {
-            'id': 'trend-3',
-            'updatedAt': '2023-09-15 01:08:36',
-            'user': {
-                'name': '林东东',
-                'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-            },
-            'group': {'name': '中二少女团', 'link': 'http://github.com/'},
-            'project': {'name': '六月迭代', 'link': 'http://github.com/'},
-            'template': '新建项目',
-        },
-        {
-            'id': 'trend-4',
-            'updatedAt': '2023-09-15 01:08:36',
-            'user': {
-                'name': '周星星',
-                'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-            },
-            'group': {'name': '白鹭酱油开发组', 'link': 'http://github.com/'},
-            'project': {'name': '5 月日常迭代', 'link': 'http://github.com/'},
-            'template': '发布了',
-        },
-        {
-            'id': 'trend-5',
-            'updatedAt': '2023-09-15 01:08:36',
-            'user': {
-                'name': '乐哥',
-                'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-            },
-            'group': {'name': '程序员日常', 'link': 'http://github.com/'},
-            'project': {'name': '品牌迭代', 'link': 'http://github.com/'},
-            'template': '新建项目',
-        },
+        
     ]
 
     return html.Div(
@@ -214,9 +150,9 @@ def render_page_bottom():
                                     for item in project_list
                                 ],
                                 className='project-list',
-                                title='进行中的项目',
+                                title='进行中的对话',
                                 bordered=False,
-                                extraLink={'content': '全部项目'},
+                                extraLink={'content': '全部对话'},
                                 bodyStyle={'padding': 0},
                                 style={
                                     'marginBottom': '24px',
@@ -233,9 +169,7 @@ def render_page_bottom():
                                                         html.Div(
                                                             fac.AntdAvatar(
                                                                 mode='image',
-                                                                src=item.get(
-                                                                    'user'
-                                                                ).get('avatar'),
+                                                                src=item.get('user').get('avatar'),
                                                                 size='small',
                                                             ),
                                                             style={
@@ -248,44 +182,16 @@ def render_page_bottom():
                                                                 html.Div(
                                                                     [
                                                                         html.Span(
-                                                                            f"{item.get('user').get('name')} 在 "
+                                                                            f"{item.get('user').get('name')} {item.get('phone')} 正在使用 "
                                                                         ),
                                                                         html.A(
-                                                                            item.get(
-                                                                                'group'
-                                                                            ).get(
-                                                                                'name'
-                                                                            ),
-                                                                            href=item.get(
-                                                                                'group'
-                                                                            ).get(
-                                                                                'link'
-                                                                            ),
-                                                                        ),
-                                                                        html.Span(
-                                                                            f" {item.get('template')} "
-                                                                        ),
-                                                                        html.A(
-                                                                            item.get(
-                                                                                'project'
-                                                                            ).get(
-                                                                                'name'
-                                                                            ),
-                                                                            href=item.get(
-                                                                                'project'
-                                                                            ).get(
-                                                                                'link'
-                                                                            ),
+                                                                            item.get('project').get('name'),
+                                                                            href=item.get('project').get('link'),
                                                                         ),
                                                                     ],
-                                                                    key=item.get(
-                                                                        'id'
-                                                                    ),
                                                                 ),
                                                                 html.Div(
-                                                                    item.get(
-                                                                        'updatedAt'
-                                                                    ),
+                                                                    item.get('updatedAt'),
                                                                     style={
                                                                         'color': 'rgba(0,0,0,.45)',
                                                                         'fontSize': '14px',
@@ -405,7 +311,7 @@ def render_page_bottom():
                                     ),
                                     className='members',
                                 ),
-                                title='团队',
+                                title='开发团队',
                                 bordered=False,
                                 style={
                                     'marginBottom': '24px',

@@ -1,7 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic_validation_decorator import NotBlank, Size
-from typing import Literal, Optional
+from typing import Literal, Optional, List
 
 
 class ModeltypeModel(BaseModel):
@@ -61,3 +61,10 @@ class DeleteModeltypeModel(BaseModel):
     """
 
     type_ids: str = Field(description='需要删除的模型分类ID')
+
+
+class ModeltypelistModel(BaseModel):
+    """
+    模型分类列表模型
+    """
+    data: List[ModeltypeModel]

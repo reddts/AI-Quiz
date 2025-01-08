@@ -36,17 +36,17 @@ def render_page_top():
             html.Div(
                 [
                     html.Div(
-                        fac.AntdStatistic(title='项目数', value=56),
+                        fac.AntdStatistic(title='在线会员', value=56),
                         className='stat-item',
                     ),
                     html.Div(
                         fac.AntdStatistic(
-                            title='团队内排名', value=8, suffix='/ 24'
+                            title='注册会员', value=8, suffix='/ 24'
                         ),
                         className='stat-item',
                     ),
                     html.Div(
-                        fac.AntdStatistic(title='项目访问', value=2223),
+                        fac.AntdStatistic(title='营收', value=2223),
                         className='stat-item',
                     ),
                 ],

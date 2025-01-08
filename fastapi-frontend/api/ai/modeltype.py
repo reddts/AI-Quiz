@@ -74,4 +74,14 @@ class ModeltypeApi:
             url=f'/ai/modeltype/{type_id}',
             method=ApiMethod.DELETE,
         )
-
+    
+    @classmethod
+    def get_modeltype_select(cls):
+        """
+        获取模型分类内容接口
+        :return:
+        """
+        return api_request(
+            url='/ai/modeltype/modeTPoption',
+            method=ApiMethod.GET,
+        )

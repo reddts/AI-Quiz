@@ -132,3 +132,15 @@ class ModeltypeService:
 
         return result
 
+
+    @classmethod
+    async def get_modeltype_opt_services(cls, query_db: AsyncSession):
+        """
+        获取模型分类列表不分页信息service
+
+        :param query_db: orm对象
+        :return: 模型分类列表信息对象
+        """
+        modeltype_list = await ModeltypeDao.get_modeltype_opt(query_db)
+
+        return modeltype_list

@@ -63,7 +63,7 @@ def render(*args, **kwargs):
                                                                 label='手机号码',
                                                             ),
                                                             fac.AntdFormItem(
-                                                                ApiSelect(
+                                                                ApiSelect(                                                                    
                                                                     dict_type='sys_normal_disable',
                                                                     id='member-status-select',
                                                                     placeholder='会员状态',

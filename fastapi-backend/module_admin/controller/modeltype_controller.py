@@ -34,6 +34,15 @@ async def get_modeltype_list(
 
     return ResponseUtil.success(model_content=modeltype_page_query_result)
 
+@modeltypeController.get('/modeTPoption', dependencies=[Depends(CheckUserInterfaceAuth('ai:modeltype:list'))])
+async def get_modeltype_opt(
+    request: Request, query_db: AsyncSession = Depends(get_db)
+):
+    modeltype_query_result = await ModeltypeService.get_modeltype_opt_services(query_db)
+    logger.info('获取成功')
+
+    return ResponseUtil.success(data=modeltype_query_result)
+
 
 @modeltypeController.post('', dependencies=[Depends(CheckUserInterfaceAuth('ai:modeltype:add'))])
 @ValidateFields(validate_model='add_modeltype')
