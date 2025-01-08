@@ -99,4 +99,13 @@ async def query_detail_modeltype(request: Request, type_id: int, query_db: Async
 
     return ResponseUtil.success(data=modeltype_detail_result)
 
+@modeltypeController.get(
+    '/getLabel/{type_id}', response_model=str, dependencies=[Depends(CheckUserInterfaceAuth('ai:modeltype:query'))]
+)
+async def query_detail_modeltype(request: Request, type_id: int, query_db: AsyncSession = Depends(get_db)):
+    modeltype_detail_result = await ModeltypeService.modeltype_detail_services(query_db, type_id)
+    logger.info(f'获取type_id为{type_id}的信息成功')
+
+    return ResponseUtil.success(data=modeltype_detail_result.type_name)
+
 

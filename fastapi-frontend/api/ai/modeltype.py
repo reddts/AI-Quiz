@@ -33,6 +33,19 @@ class ModeltypeApi:
             url=f'/ai/modeltype/{type_id}',
             method=ApiMethod.GET,
         )
+    
+    @classmethod
+    def get_modeltype_label(cls, type_id: int):
+        """
+        查询模型分类标签名称接口
+
+        :param type_id: 模型分类id
+        :return:
+        """
+        return api_request(
+            url=f'/ai/modeltype/getLabel/{type_id}',
+            method=ApiMethod.GET,
+        )
 
     @classmethod
     def add_modeltype(cls, json: dict):

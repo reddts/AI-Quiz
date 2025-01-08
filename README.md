@@ -72,7 +72,7 @@ AI-Quiz 以科学的心理学基础、智能化的分析方式和趣味化的内
 | 1 | 后台框架的修改适配 | 已完成 |   |
 | 2 | 会员管理功能 | 已完成 | 2024.12.1-2024.12.30  |
 | 3 | 量表管理功能 | 开发中 | 2025.1.1-  |
-| 4 | AI接口的配置 | 开发中 | 2025.1.6-    |
+| 4 | AI接口的配置 | 已完成 | 2025.1.6-2025.1.8   |
 | 5 | AI接口的开发 | 待开发 |   |
 | 6 | 支付功能的开发 | 待开发 |   |
 | 7 | 前端API接口框架开发 | 待开发 |   |
@@ -89,7 +89,7 @@ AI-Quiz 以科学的心理学基础、智能化的分析方式和趣味化的内
     </tr>
 </table>
 
-## 管理端在线体验
+## 管理端在线体验（基本开发完成后会开放体验）
 - *账号：admin*
 - *密码：admin123*
 - 演示地址：<a href="https://admin.ai-quiz.info">AI-Quiz管理中心<a>
@@ -109,9 +109,9 @@ pip3 install -r requirements.txt
 pip3 install -r requirements-pg.txt
 ```
 
-### 开发
+### 关于项目文件结构的说明
 
-#### 前端
+#### 管理端的前端
 ```bash
 # 进入前端目录
 cd fastapi-frontend
@@ -123,9 +123,9 @@ cd fastapi-frontend
 python3 app.py --env=dev
 ```
 
-#### 后端API
+#### 服务端API，包含管理端API和前端API
 ```bash
-# 进入后端目录
+# 进入服务端目录
 cd fastapi-backend
 
 # 配置环境
@@ -136,7 +136,7 @@ cd fastapi-backend
 1.新建数据库ai-quiz(默认，可修改)
 2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz-pg.sql
 
-# 运行后端
+# 运行服务端
 python3 app.py --env=dev
 ```
 
@@ -170,21 +170,21 @@ server {
 }
 ```
 
-#### 前端
+#### 管理前端
 ```bash
-# 进入前端目录
+# 进入管理前端目录
 cd fastapi-frontend
 
 # 配置应用信息
 在.env.prod文件中配置应用发布的相关信息，注意：APP_BASE_URL需要配置为nginx代理的地址，例如上面的nginx代理监听的是8000端口，则APP_BASE_URL需要配置为http://127.0.0.1:8000
 
-# 运行前端
+# 运行管理前端
 python3 wsgi.py --env=prod
 ```
 
-#### 后端
+#### 服务端API
 ```bash
-# 进入后端目录
+# 进入服务端目录
 cd fastapi-backend
 
 # 配置环境
@@ -195,7 +195,7 @@ cd fastapi-backend
 1.新建数据库ai-quiz(默认，可修改)
 2.如果使用的是MySQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz.sql；如果使用的是PostgreSQL数据库，使用命令或数据库连接工具运行sql文件夹下的ai-quiz-pg.sql
 
-# 运行后端
+# 运行服务端API
 python3 app.py --env=prod
 ```
 

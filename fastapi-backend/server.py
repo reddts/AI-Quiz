@@ -27,6 +27,7 @@ from module_admin.controller.onlinemb_controller import onlinembController
 from module_admin.controller.tags_controller import tagsController
 from module_admin.controller.modeltype_controller import modeltypeController
 from module_admin.controller.aimodel_controller import aimodelController
+from module_admin.controller.keypool_controller import keypoolController
 from sub_applications.handle import handle_sub_applications
 from utils.common_util import worship
 from utils.log_util import logger
@@ -87,6 +88,7 @@ controller_list = [
     {'router': tagsController, 'tags': ['量表模块-标签管理']},
     {'router': modeltypeController, 'tags': ['AI模块-模型分类管理']},
     {'router': aimodelController, 'tags': ['AI模块-模型管理']},
+    {'router': keypoolController, 'tags': ['AI模块-key池管理']},
 ]
 
 for controller in controller_list:
